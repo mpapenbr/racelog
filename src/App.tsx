@@ -1,23 +1,33 @@
+import "antd/dist/antd.css";
+import { ConnectedRouter } from "connected-react-router";
+import { History } from "history";
 import React from "react";
+import { Provider } from "react-redux";
+import { Store } from "redux";
 import "./App.css";
-import logo from "./logo.svg";
+import AppHeader from "./components/appHeader";
+import TabContainer from "./container/tabs/tabContainer";
+import { ApplicationState } from "./stores";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <p>Mode is {process.env.NODE_ENV}</p>
-        <p>Value is {process.env.REACT_APP_MY_VAR}</p>
-        <a className="App-link" href="https://reactjs.org" target="_blank" rel="noopener noreferrer">
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+interface AppProps {
+  store: Store<ApplicationState>;
+  history: History;
 }
+
+const App: React.FC<AppProps> = ({ store, history }) => {
+  return (
+    <Provider store={store}>
+      <ConnectedRouter history={history}>
+        <div className="App">
+          {/* <DevContainer /> */}
+          <AppHeader />
+          <TabContainer />
+
+          {/* <RaceContainer /> */}
+        </div>
+      </ConnectedRouter>
+    </Provider>
+  );
+};
 
 export default App;
