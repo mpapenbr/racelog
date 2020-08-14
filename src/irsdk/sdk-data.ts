@@ -33,6 +33,8 @@ export interface Driver {
   TeamName: string;
   UserID: number;
   UserName: string;
+  CarIsPaceCar: number;
+  IsSpectator: number;
 }
 
 export interface WeekendInfo {
@@ -49,6 +51,7 @@ export interface WeekendInfo {
   TrackDynamicTrack: boolean;
   TrackSkies: string;
   TrackSurfaceTemp: string;
+  TrackLength: string;
 }
 export function defaultWeekendInfo(): WeekendInfo {
   return {
@@ -65,6 +68,7 @@ export function defaultWeekendInfo(): WeekendInfo {
     TrackDynamicTrack: false,
     TrackSkies: "",
     TrackSurfaceTemp: "",
+    TrackLength: "", // contains unit km
   };
 }
 
@@ -79,6 +83,8 @@ export const defaultDriver: Driver = {
   TeamName: "",
   UserID: 0,
   UserName: "",
+  CarIsPaceCar: 0,
+  IsSpectator: 0,
 };
 
 export class GeneralInfo {
@@ -93,6 +99,7 @@ export class GeneralInfo {
   public sessionId: number = 0;
   public subSessionId: number = 0;
   public teamRacing: boolean = false;
+
   public weather: WeatherInfo = new WeatherInfo();
 }
 
@@ -102,6 +109,7 @@ export interface SdkResponse {
   disconnected: boolean;
   data: ResponseData;
 }
+
 export interface ResponseData {
   SessionTimeOfDay: number;
   SessionTick: number;
@@ -117,10 +125,15 @@ export interface ResponseData {
   TrackTempCrew: number;
   WindDir: number;
   WindVel: number;
+  CarIdxPosition: number[];
   CarIdxLapDistPct: number[];
   CarIdxLap: number[];
+  CarIdxLastLapTime: number[];
   CarIdxF2Time: number[];
   CarIdxOnPitRoad: boolean[];
+  CarIdxOnPitRoadTime: number[]; // own: time in pitroad
+  CarIdxPitActionTime: number[]; // own: time for the pitstop self
+  CarIdxSplitTimes: number[][]; // own:
   SessionInfo: SessionInfo;
   DriverInfo: DriverInfo;
   WeekendInfo: WeekendInfo;

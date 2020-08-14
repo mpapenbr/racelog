@@ -24,7 +24,7 @@ const Connection: React.FC<MyProps> = (props: MyProps) => {
     ws.onopen = () => {
       ws.send(
         JSON.stringify({
-          fps: 1,
+          fps: 10,
           requestParams: [
             "DriverInfo",
             "AirTemp",
@@ -33,6 +33,8 @@ const Connection: React.FC<MyProps> = (props: MyProps) => {
             "CarIdxF2Time",
             "CarIdxLapDistPct",
             "CarIdxOnPitRoad",
+            "CarIdxPosition",
+            "CarIdxLastLapTime",
             "SessionInfo",
             "SessionTimeOfDay",
             "SessionTime",

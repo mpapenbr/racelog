@@ -1,6 +1,6 @@
 import { Reducer } from "redux";
 import { SdkResponse } from "../../irsdk/sdk-data";
-import { updateGeneralInfo, updateStaticInfo } from "./extract/extractData";
+import { updateDrivers, updateGeneralInfo, updateStaticInfo, updateTelemetryData } from "./extract/extractData";
 import { defaultIRacingState, IRacingState, IRacingTelemetryActions } from "./types";
 
 const reducer: Reducer<IRacingState> = (state = defaultIRacingState, action) => {
@@ -21,6 +21,13 @@ const reducer: Reducer<IRacingState> = (state = defaultIRacingState, action) => 
         haveData: true,
         staticInfo: updateStaticInfo(state.staticInfo, sdkData.data),
         generalInfo: updateGeneralInfo(state.generalInfo, sdkData.data),
+        drivers: updateDrivers(state.drivers, sdkData.data),
+        telemetryData: updateTelemetryData(state, sdkData.data),
+        // telemetryData: {
+        //   numPackets: state.telemetryData.numPackets + 1,
+        //   prevResponse: state.telemetryData.currentResponse,
+        //   currentResponse: sdkData.data,
+        // },
       };
     }
 
